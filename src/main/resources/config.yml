@@ -1,0 +1,6 @@
+announcement-settings:
+  interval: 600
+  format: '&7(&c&l!&7) &r{ANNOUNCEMENT}'
+  announcements:
+    - "&bDonate to get &a&l&nAMAZING &r&bperks and benefits!"
+    - "&bVisit the &aSpell Master &bto get new spells and graduate classes!"

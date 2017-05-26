@@ -1,0 +1,15 @@
+name: GodricsOwlery
+version: 1.0.0
+main: me.tylergrissom.godricsowlery.Main
+
+commands:
+  owlery:
+    description: The primary GodricsOwlery command.
+
+permissions:
+  godricsowlery.*:
+    description: The universal permission for all GodricsOwlery features.
+    children:
+      godricsowlery.owlery: true
+  godricsowlery.owlery:
+    description: Whether or not the player can access /owlery.

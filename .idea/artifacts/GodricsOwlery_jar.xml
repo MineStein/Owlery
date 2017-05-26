@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="GodricsOwlery:jar">
+    <output-path>$USER_HOME$/Downloads/Potter Config</output-path>
+    <root id="archive" name="GodricsOwlery.jar">
+      <element id="module-output" name="GodricsOwlery" />
+    </root>
+  </artifact>
+</component>

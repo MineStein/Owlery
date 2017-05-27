@@ -4,6 +4,7 @@ import me.tylergrissom.godricsowlery.Main;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Copyright Tyler Grissom 2017
@@ -11,13 +12,13 @@ import java.util.HashMap;
 public class ChatTracker {
 
     private Main plugin;
-    private HashMap<Player, String> createAnnouncement;
+    private HashMap<UUID, String> createAnnouncement;
 
     public Main getPlugin() {
         return plugin;
     }
 
-    public HashMap<Player, String> getCreateAnnouncement() {
+    public HashMap<UUID, String> getCreateAnnouncement() {
         return createAnnouncement;
     }
 

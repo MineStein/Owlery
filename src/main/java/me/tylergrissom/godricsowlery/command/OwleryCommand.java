@@ -1,6 +1,7 @@
 package me.tylergrissom.godricsowlery.command;
 
 import me.tylergrissom.godricsowlery.Main;
+import me.tylergrissom.godricsowlery.chat.ChatTracker;
 import me.tylergrissom.godricsowlery.item.ItemBuilder;
 import me.tylergrissom.godricsowlery.item.ItemUtility;
 import me.tylergrissom.godricsowlery.menu.MenuGUI;
@@ -105,7 +106,13 @@ public class OwleryCommand extends CommandBase {
                                         // TODO
                                     }
                                 } else if (ItemUtility.isSimilar(is1, Material.INK_SACK)) {
+                                    ChatTracker chatTracker = plugin.getChatTracker();
 
+                                    player1.closeInventory();
+                                    player1.playSound(player1.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);
+                                    player1.sendMessage("&aType what you wish this new announcement to be in the chat or type '!cancel' to cancel.");
+
+                                    chatTracker.getCreateAnnouncement().put(player1.getUniqueId(), "");
                                 }
                             }
                         }.addOption(new ItemBuilder().type(Material.INK_SACK).name("§a§lCreate").lore("§7Create a new announcement", "", "§6§lClick §7to use").data((byte) 10).build(), 53);

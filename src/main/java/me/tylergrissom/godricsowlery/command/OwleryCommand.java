@@ -6,6 +6,7 @@ import me.tylergrissom.godricsowlery.item.ItemBuilder;
 import me.tylergrissom.godricsowlery.item.ItemUtility;
 import me.tylergrissom.godricsowlery.menu.MenuGUI;
 import me.tylergrissom.godricsowlery.menu.YesNoCancelGUI;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -32,6 +33,10 @@ public class OwleryCommand extends CommandBase {
 
     public OwleryCommand(Main plugin) {
         this.plugin = plugin;
+    }
+
+    private String truncateAndFormat(String str) {
+        return "§d§o" + StringUtils.abbreviate(ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', str)).trim(), 25);
     }
 
     void execute(CommandSender sender, Command command, String[] args) {
@@ -103,16 +108,22 @@ public class OwleryCommand extends CommandBase {
                                         player1.playSound(player1.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);
                                         player1.sendMessage(announcement);
                                     } else if (click.equals(ClickType.RIGHT)) {
-                                        // TODO
+                                        ChatTracker chatTracker = plugin.getChatTracker();
+
+                                        player1.closeInventory();
+                                        player1.playSound(player1.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);
+                                        player1.sendMessage("§bType what you wish to change the announcement to in the chat or type §a'!cancel' §bto cancel.");
+
+                                        chatTracker.getCreateAnnouncement().put(player1.getUniqueId(), new ChatTracker.ChatData(ChatTracker.ChatData.Type.EDIT, id));
                                     }
                                 } else if (ItemUtility.isSimilar(is1, Material.INK_SACK)) {
                                     ChatTracker chatTracker = plugin.getChatTracker();
 
                                     player1.closeInventory();
                                     player1.playSound(player1.getLocation(), Sound.UI_BUTTON_CLICK, 1F, 1F);
-                                    player1.sendMessage("&aType what you wish this new announcement to be in the chat or type '!cancel' to cancel.");
+                                    player1.sendMessage("§bType what you wish this new announcement to be in the chat or type §a'!cancel' §bto cancel.");
 
-                                    chatTracker.getCreateAnnouncement().put(player1.getUniqueId(), "");
+                                    chatTracker.getCreateAnnouncement().put(player1.getUniqueId(), new ChatTracker.ChatData(ChatTracker.ChatData.Type.CREATE));
                                 }
                             }
                         }.addOption(new ItemBuilder().type(Material.INK_SACK).name("§a§lCreate").lore("§7Create a new announcement", "", "§6§lClick §7to use").data((byte) 10).build(), 53);
@@ -120,7 +131,11 @@ public class OwleryCommand extends CommandBase {
                         List<String> announcements = plugin.getConfig().getStringList("announcement-settings.announcements");
 
                         for (int i = 0; i < announcements.size(); i++) {
-                            ItemStack announcementItem = new ItemBuilder().type(Material.PAPER).name("§7#" + (i + 1)).lore("§a§lLeft-click §7to view", "§c§lRight-click §7to modify", "§6§lShift-click §7to delete").build();
+                            ItemStack announcementItem = new ItemBuilder()
+                                    .type(Material.PAPER)
+                                    .name("§7#" + (i + 1))
+                                    .lore(truncateAndFormat(announcements.get(i)), "", "§a§lLeft-click §7to view", "§c§lRight-click §7to modify", "§6§lShift-click §7to delete")
+                                    .build();
 
                             innerGui.addOption(announcementItem);
                         }
